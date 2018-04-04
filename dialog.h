@@ -7,6 +7,8 @@
 #include <QDebug>
 #include <QBuffer>
 #include <QImage>
+#include <QFileDialog>
+#include <QSqlError>
 
 namespace Ui {
 class Dialog;
@@ -25,10 +27,13 @@ private slots:
 
     void on_pushButtonOk_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::Dialog *ui;
     QSqlQuery *qry;
     QString name;
+    QByteArray image;
 };
 
 #endif // DIALOG_H

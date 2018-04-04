@@ -13,13 +13,13 @@
   <property name="windowTitle">
    <string>Новая цель</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
      <width>225</width>
-     <height>81</height>
+     <height>84</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -29,24 +29,21 @@
        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
       </property>
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Адрес картинки</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEditTarget"/>
-      </item>
-      <item row="1" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Цена цели</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="0" column="1">
        <widget class="QLineEdit" name="lineEditPrice"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Select</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

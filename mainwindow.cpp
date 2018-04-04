@@ -95,7 +95,7 @@ void MainWindow::block(bool status)
     {
         ui->ButtonBuyTarget->setEnabled(false);
         ui->ButtonDelete->setEnabled(false);
-        ui->ButtonNewRec->setEnabled(false);
+        ui->ButtonNewRec->setEnabled(true);
         ui->ButtonNewTarget->setEnabled(false);
         ui->ButtonReplace->setEnabled(true);
         ui->ButtonStatistics->setEnabled(false);
@@ -251,6 +251,8 @@ void MainWindow::on_ButtonHelpLogin_clicked()
 
 void MainWindow::on_ButtonNewRec_clicked()
 {
+    if(ui->labelName->text() != "admin")
+    {
     QString name = ui->labelName->text();
     QString month = QString::number(ui->spinBoxMonth->value());
     QString year = QString::number(ui->spinBoxYear->value());
@@ -286,6 +288,32 @@ void MainWindow::on_ButtonNewRec_clicked()
     //informationName();
     on_ButtonEnter_clicked();
     qDebug() << qry->lastError();
+
+    }else{
+        qryl->prepare("SELECT MAX(id) FROM lpht;");
+        qryl->exec();
+
+        qDebug() << qry->lastError();
+
+        qryl->next();
+
+        //id новой ячейки
+        int count = qryl->value(0).toInt()+1;
+
+        qryl->prepare("INSERT INTO lpht VALUES (:id, :login, :password, :help, :moneybox, :targetbuy, :target);");
+        qryl->bindValue(":id", count);
+        qryl->bindValue(":login", "");
+        qryl->bindValue(":password", "");
+        qryl->bindValue(":help", "");
+        qryl->bindValue(":moneybox", "");
+        qryl->bindValue(":targetbuy", "");
+        qryl->bindValue(":target", "");
+        qryl->exec();
+
+
+        on_ButtonEnter_clicked();
+        qDebug() << qryl->lastError();
+    }
 }
 
 void MainWindow::on_ButtonReplace_clicked()

@@ -105,13 +105,6 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="ButtonNewLogin">
-            <property name="text">
-             <string>Новый</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="ButtonEnter">
             <property name="text">
              <string>Войти</string>

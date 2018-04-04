@@ -6,6 +6,7 @@ Dialog::Dialog(QSqlDatabase db, QString login, QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
+    qry = new QSqlQuery(db);
 
     QRegExp exp("[0-9]{1,7}");
     ui->lineEditPrice->setValidator(new QRegExpValidator(exp,this));
@@ -29,19 +30,22 @@ void Dialog::on_pushButtonClose_clicked()
 
 void Dialog::on_pushButtonOk_clicked()
 {
-//    QPixmap img;
-//    QByteArray *qByteArray = new QByteArray();
-//    QBuffer *qBuffer = new QBuffer(qByteArray, this);
-//    if(img.byteCount()!=0)
-//    {
-//      qBuffer->open(QIODevice::WriteOnly);
-//      img.save(qBuffer,"JPG");
-//      qBuffer->close();
-//    }
-
     qry->prepare("UPDATE lpht SET targetbuy = :tb, target = :t WHERE login = :name;");
     qry->bindValue(":name", name);
     qry->bindValue(":tb", ui->lineEditPrice->text());
-    //qry->bindValue(":t",QByteArray("C:/Users/Miksa/Desktop/"+ui->lineEditTarget->text()+".jpg"));
-    //как записать картинку?!
+    qry->bindValue(":t", image);
+    qry->exec();
+    qDebug() << qry->lastError();
+    this->close();
+}
+
+void Dialog::on_pushButton_clicked()
+{
+    QString pic = QFileDialog::getOpenFileName(this);
+    if(!pic.isEmpty())
+    {
+        QFile fpix(pic);
+        fpix.open(QFile::ReadWrite);
+        image = fpix.readAll();
+    }
 }
